@@ -11,6 +11,8 @@ class DessertMenuViewController: UIViewController {
     
     //MARK: - PROPERTIES
     
+    var dessertItems: [Meal] = []
+    
     /// Table view property for the view
     private var tableView: UITableView!
     
@@ -22,7 +24,8 @@ class DessertMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.04705882353, blue: 0.2196078431, alpha: 1)
+        fetchDessertsData()
+//        view.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.04705882353, blue: 0.2196078431, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +36,36 @@ class DessertMenuViewController: UIViewController {
     }
     
     //MARK: - PRIVATE FUNCTIONS
+    
+    private func fetchDessertsData() {
+//        NetworkService.request(endpoint: DessertEndpoint.getDessertResults) { (result: Result<DessertModels, Error>) in
+//            switch result {
+//            case .success(let response):
+//                print("RESPONSE:", response)
+//                self.dessertItems = response.meals
+//            case .failure(let error):
+//                print("Error:", error)
+//            }
+//        }
+        
+//        NetworkService.request(endpoint: DessertEndpoint.getDessertResults(idPage: "1")) { (result: Result<DessertModels, Error>) in
+//            switch result {
+//            case .success(let response):
+//                print("Response:", response)
+//            case .failure(let error):
+//                print("Error:", error)
+//            }
+//        }
+        
+        NetworkService.request(endpoint: DessertEndpoint.getDessertResults(searchParam: "", value: "")) { (result: Result<DessertModels, Error>) in
+            switch result {
+            case .success(let response):
+                print("Response:", response)
+            case .failure(let error):
+                print("Error:", error)
+            }
+        }
+    }
     
     /// Configures properties of Navigation Bar
     private func configureNavigationBar() {
@@ -82,7 +115,7 @@ class DessertMenuViewController: UIViewController {
     }
 }
 
-/// TableView Delegate and Data Source Protocols
+/// Table View Delegate and Data Source Protocols
 extension DessertMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5

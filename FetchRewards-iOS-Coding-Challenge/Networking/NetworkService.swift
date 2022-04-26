@@ -1,0 +1,55 @@
+//
+//  NetworkService.swift
+//  FetchRewards-iOS-Coding-Challenge
+//
+//  Created by Ryan Nguyen on 4/25/22.
+//
+
+import Foundation
+
+class NetworkService {
+    /// Executes the web call and will decode the JSON response with the provided Codable object
+    /// - Parameters:
+    ///     - endpoint: the endpoint to make the HTTP request
+    ///     - completion: JSON response converted to provide Codable object in succession or failure otherwise
+    class func request<T: Codable>(endpoint: Endpoint, completion: @escaping (Result<T, Error>) -> ()) {
+        var components = URLComponents()
+        components.scheme = endpoint.scheme
+        components.host = endpoint.baseURL
+        components.path = endpoint.path
+        components.queryItems = endpoint.parameters
+        
+        /// Checks if URL is constructed without issues
+        guard let url = components.url else { return }
+        
+        /// Create a URL session with the HTTP method
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = endpoint.method
+        
+        /// Reference to URL session and define our data
+        let session = URLSession(configuration: .default)
+        let dataTask = session.dataTask(with: urlRequest) { data, response, error in
+            
+            // Error handling for error response
+            guard error == nil else {
+                completion(.failure(error!))
+                print(error?.localizedDescription ?? "Unknown error")
+                return
+            }
+            
+            guard response != nil, let data = data else { return }
+                // Do Catch for the json response to be in object
+                do {
+                    let responseObject = try JSONDecoder().decode(T.self, from: data)
+                    // Validate and provide to appropriate response object
+                    completion(.success(responseObject))
+                } catch(let error) {
+                    // Handles failure response
+                    completion(.failure(error))
+                }
+        }
+        
+        dataTask.resume()
+        
+    }
+}
