@@ -9,8 +9,13 @@ import Foundation
 
 enum DessertEndpoint: Endpoint {
     
+    /// Case statment to construct parameters for Dessert Items
     case getDessertResults(searchParam: String, value: String)
     
+    /// Case statment to construct parameters for Dessert Details
+    case getDessertDetails(searchParam: String, value: String)
+    
+    /// HTTP or HTTPS
     var scheme: String {
         switch self {
         default:
@@ -18,6 +23,7 @@ enum DessertEndpoint: Endpoint {
         }
     }
     
+    /// Base constructor for URL
     var baseURL: String {
         switch self {
         default:
@@ -25,30 +31,29 @@ enum DessertEndpoint: Endpoint {
         }
     }
     
+    /// Path constructor for URL
     var path: String {
         switch self {
         case .getDessertResults:
             return "/api/json/v1/1/filter.php"
+            
+        case .getDessertDetails:
+            return "/api/json/v1/1/lookup.php"
         }
     }
     
+    /// Parameter constructor for URL
     var parameters: [URLQueryItem] {
         
         switch self {
-        case .getDessertResults(_, _) :
+        case .getDessertResults(_, _):
             return [URLQueryItem (name: "c", value: "Dessert")]
+        case .getDessertDetails(_, let page):
+            return [URLQueryItem(name: "i", value: page)]
         }
     }
     
-    /*
-     Expected URL: https:www.themealdb.com/api/json/v1/1/filter.php?c=Dessert
-     Result URL:   https:www.themealdb.com/api/json/v1/1/?dessert_menu=filter.php?c%3DDessert
-                   https:www.themealdb.com/api/json/v1/1/?filter.php?c%3DDessert=Dessert
-                   https:www.themealdb.com/api/json/v1/1/?filter.php?c=Dessert
-                   https:www.themealdb.com/api/json/v1/1/filter.php%3Fc?=Dessert
-                   https:www.themealdb.com/api/json/v1/1/filter.php??c=Dessert
-     **/
-    
+    /// Handles the HTTP methods of the URL
     var method: String {
         switch self {
         default:

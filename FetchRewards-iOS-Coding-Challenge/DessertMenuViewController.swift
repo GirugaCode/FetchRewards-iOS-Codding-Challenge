@@ -23,9 +23,7 @@ class DessertMenuViewController: UIViewController {
     //MARK: - VIEW CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         fetchDessertsData()
-//        view.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.04705882353, blue: 0.2196078431, alpha: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,26 +35,8 @@ class DessertMenuViewController: UIViewController {
     
     //MARK: - PRIVATE FUNCTIONS
     
+    /// Network Request to fetch all Desserts from API
     private func fetchDessertsData() {
-//        NetworkService.request(endpoint: DessertEndpoint.getDessertResults) { (result: Result<DessertModels, Error>) in
-//            switch result {
-//            case .success(let response):
-//                print("RESPONSE:", response)
-//                self.dessertItems = response.meals
-//            case .failure(let error):
-//                print("Error:", error)
-//            }
-//        }
-        
-//        NetworkService.request(endpoint: DessertEndpoint.getDessertResults(idPage: "1")) { (result: Result<DessertModels, Error>) in
-//            switch result {
-//            case .success(let response):
-//                print("Response:", response)
-//            case .failure(let error):
-//                print("Error:", error)
-//            }
-//        }
-        
         NetworkService.request(endpoint: DessertEndpoint.getDessertResults(searchParam: "", value: "")) { (result: Result<DessertModels, Error>) in
             switch result {
             case .success(let response):
