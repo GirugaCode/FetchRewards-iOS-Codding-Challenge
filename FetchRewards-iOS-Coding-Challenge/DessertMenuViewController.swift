@@ -117,7 +117,9 @@ extension DessertMenuViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = DessertDetailViewController()
-        controller.dessertID = dessertItems[indexPath.item].idMeal
+        controller.dessertID = dessertItems[indexPath.row].idMeal
+        controller.dessertTitle = dessertItems[indexPath.row].strMeal
+        controller.imageURL = dessertItems[indexPath.row].strMealThumb
         navigationController?.pushViewController(controller, animated: true)
     }
     
