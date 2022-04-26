@@ -23,6 +23,18 @@ class DessertCell: UITableViewCell {
         return view
     }()
     
+    /// Image view of each dessert menu cell
+    let dessertImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = UIView.ContentMode.scaleAspectFill
+        iv.layer.cornerRadius = 10
+        iv.layer.borderWidth = 2
+        iv.layer.borderColor = #colorLiteral(red: 0.9725490196, green: 0.6509803922, blue: 0.09803921569, alpha: 1)
+        iv.clipsToBounds = true
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     //MARK: - INIT
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -42,7 +54,14 @@ class DessertCell: UITableViewCell {
         configureAutoLayout()
     }
     
-    //MARK: - PRIVATE FUNCTION
+    //MARK: - PUBLIC FUNCTIONS
+    
+    /// Configures cell data to appear for DessertCells view
+    func configureCell(dessertItem: Dessert) {
+        dessertImageView.loadImageFromURL(urlString: dessertItem.strMealThumb, placeholder: UIImage(named: "FetchRewardsPlaceholder"))
+    }
+    
+    //MARK: - PRIVATE FUNCTIONS
     
     /// Configures layout of the Dessert Cell
     private func configureAutoLayout() {
@@ -54,6 +73,15 @@ class DessertCell: UITableViewCell {
             backView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             backView.centerXAnchor.constraint(equalTo: centerXAnchor),
             backView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        ])
+        
+        backView.addSubview(dessertImageView)
+
+        NSLayoutConstraint.activate([
+            dessertImageView.topAnchor.constraint(equalTo: backView.topAnchor),
+            dessertImageView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
+            dessertImageView.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
+            dessertImageView.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
         ])
     }
 }

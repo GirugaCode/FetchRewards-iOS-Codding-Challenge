@@ -16,6 +16,14 @@
 		289002F8280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289002F7280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITests.swift */; };
 		289002FA280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 289002F9280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITestsLaunchTests.swift */; };
 		28900307280E8C610020AD7A /* DessertMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28900306280E8C610020AD7A /* DessertMenuViewController.swift */; };
+		2890030A280E99C50020AD7A /* DessertCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28900309280E99C50020AD7A /* DessertCells.swift */; };
+		28D8C7FB281775D200390944 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C7FA281775D200390944 /* Endpoint.swift */; };
+		28D8C7FD28177F9B00390944 /* DessertEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C7FC28177F9B00390944 /* DessertEndpoint.swift */; };
+		28D8C7FF2817807800390944 /* DessertModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C7FE2817807800390944 /* DessertModels.swift */; };
+		28D8C803281781D700390944 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C802281781D700390944 /* NetworkService.swift */; };
+		28D8C8052817C20300390944 /* DessertDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C8042817C20300390944 /* DessertDetailViewController.swift */; };
+		28D8C8072817C2C700390944 /* DessertDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C8062817C2C700390944 /* DessertDetails.swift */; };
+		28D8C80C2817D6D000390944 /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D8C80B2817D6D000390944 /* UIImageView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,14 @@
 		289002F7280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRewards_iOS_Coding_ChallengeUITests.swift; sourceTree = "<group>"; };
 		289002F9280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchRewards_iOS_Coding_ChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		28900306280E8C610020AD7A /* DessertMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertMenuViewController.swift; sourceTree = "<group>"; };
+		28900309280E99C50020AD7A /* DessertCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertCells.swift; sourceTree = "<group>"; };
+		28D8C7FA281775D200390944 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		28D8C7FC28177F9B00390944 /* DessertEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertEndpoint.swift; sourceTree = "<group>"; };
+		28D8C7FE2817807800390944 /* DessertModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertModels.swift; sourceTree = "<group>"; };
+		28D8C802281781D700390944 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		28D8C8042817C20300390944 /* DessertDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailViewController.swift; sourceTree = "<group>"; };
+		28D8C8062817C2C700390944 /* DessertDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetails.swift; sourceTree = "<group>"; };
+		28D8C80B2817D6D000390944 /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +118,10 @@
 				289002D6280E7B5C0020AD7A /* AppDelegate.swift */,
 				289002D8280E7B5C0020AD7A /* SceneDelegate.swift */,
 				28900306280E8C610020AD7A /* DessertMenuViewController.swift */,
+				28D8C8042817C20300390944 /* DessertDetailViewController.swift */,
+				28900308280E99A00020AD7A /* Views */,
+				28D8C7F9281775A700390944 /* Networking */,
+				28D8C8082817C98E00390944 /* Extensions */,
 				289002DC280E7B5C0020AD7A /* Main.storyboard */,
 				289002DF280E7B600020AD7A /* Assets.xcassets */,
 				289002E1280E7B600020AD7A /* LaunchScreen.storyboard */,
@@ -125,6 +145,34 @@
 				289002F9280E7B600020AD7A /* FetchRewards_iOS_Coding_ChallengeUITestsLaunchTests.swift */,
 			);
 			path = "FetchRewards-iOS-Coding-ChallengeUITests";
+			sourceTree = "<group>";
+		};
+		28900308280E99A00020AD7A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				28900309280E99C50020AD7A /* DessertCells.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		28D8C7F9281775A700390944 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				28D8C7FA281775D200390944 /* Endpoint.swift */,
+				28D8C7FC28177F9B00390944 /* DessertEndpoint.swift */,
+				28D8C802281781D700390944 /* NetworkService.swift */,
+				28D8C7FE2817807800390944 /* DessertModels.swift */,
+				28D8C8062817C2C700390944 /* DessertDetails.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		28D8C8082817C98E00390944 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				28D8C80B2817D6D000390944 /* UIImageView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +307,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				28900307280E8C610020AD7A /* DessertMenuViewController.swift in Sources */,
+				28D8C8072817C2C700390944 /* DessertDetails.swift in Sources */,
+				28D8C7FD28177F9B00390944 /* DessertEndpoint.swift in Sources */,
+				28D8C803281781D700390944 /* NetworkService.swift in Sources */,
 				289002D7280E7B5C0020AD7A /* AppDelegate.swift in Sources */,
+				2890030A280E99C50020AD7A /* DessertCells.swift in Sources */,
 				289002D9280E7B5C0020AD7A /* SceneDelegate.swift in Sources */,
+				28D8C80C2817D6D000390944 /* UIImageView+Extension.swift in Sources */,
+				28D8C7FB281775D200390944 /* Endpoint.swift in Sources */,
+				28D8C8052817C20300390944 /* DessertDetailViewController.swift in Sources */,
+				28D8C7FF2817807800390944 /* DessertModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

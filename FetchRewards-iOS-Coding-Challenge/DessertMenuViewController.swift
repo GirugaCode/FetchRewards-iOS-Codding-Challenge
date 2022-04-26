@@ -11,13 +11,20 @@ class DessertMenuViewController: UIViewController {
     
     //MARK: - PROPERTIES
     
-    var dessertItems: [Meal] = []
+    /// Dessert Menu Data
+    var dessertItems: [Dessert] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     
     /// Table view property for the view
     private var tableView: UITableView!
     
     /// Constant value for each cell height
-    private let cellRowHeight: CGFloat = 140
+    private let cellRowHeight: CGFloat = 200
     private let dessertCellId = "DessertCellId"
     
     //MARK: - VIEW CYCLE
@@ -41,6 +48,7 @@ class DessertMenuViewController: UIViewController {
             switch result {
             case .success(let response):
                 print("Response:", response)
+                self.dessertItems = response.meals
             case .failure(let error):
                 print("Error:", error)
             }
@@ -98,13 +106,19 @@ class DessertMenuViewController: UIViewController {
 /// Table View Delegate and Data Source Protocols
 extension DessertMenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return dessertItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: dessertCellId, for: indexPath) as? DessertCell else { return UITableViewCell() }
-        
+        cell.configureCell(dessertItem: dessertItems[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = DessertDetailViewController()
+        controller.dessertID = dessertItems[indexPath.item].idMeal
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }

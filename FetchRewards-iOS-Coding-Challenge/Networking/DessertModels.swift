@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - DessertModels
 struct DessertModels: Codable {
-    let meals: [Meal]
+    let meals: [Dessert]
 }
 
 // MARK: - Meal
-struct Meal: Codable {
+struct Dessert: Codable {
     let strMeal: String
     let strMealThumb: String
     let idMeal: String
