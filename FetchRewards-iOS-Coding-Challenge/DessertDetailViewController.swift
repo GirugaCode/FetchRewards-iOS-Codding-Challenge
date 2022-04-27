@@ -9,24 +9,48 @@ import UIKit
 
 class DessertDetailViewController: UIViewController {
     //MARK: - PROPERTIES
+    
+    /// Captures the dessertID passed from DessertMenuViewController
     var dessertID = ""
+    
+    /// Captures the dessertTitle passed from DessertMenuViewController
     var dessertTitle = ""
+    
+    /// Captures the imageURL passed from DessertMenuViewController
     var imageURL = ""
     
+    /// Dessert Details of selected choice
     var dessertDetails: [DessertInfo] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.dessertInstructions.text = self.dessertDetails.first?.instructions
+                self.dessertInstructionsTextView.text = self.dessertDetails.first?.instructions
             }
         }
     }
     
-    let scrollView = UIScrollView()
-    let contentView = UIView()
+    /// Dessert Ingredients of selected choice
+    var dessertIngredients: [Ingredient] = []
     
+    /// Dessert Ingredients and Measurements of selected choice
+    var dessertIngredientsMeasurementsDetails = [String]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.dessertIngredientsTextView.text = self.dessertIngredientsMeasurementsDetails.joined(separator: "\n")
+            }
+        }
+    }
+
     //MARK: - UI COMPONENTS
+    
+    /// Scroll view of Dessert Details
+    private let scrollView = UIScrollView()
+    
+    /// Content view for scrollView
+    private let contentView = UIView()
+    
+    /// Stackview holding Dessert Detail UI elements
     private lazy var dessertDetailStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [dessertDetailImageView,dessertInstructions,dessertIngredients])
+        let stackView = UIStackView(arrangedSubviews: [dessertDetailImageView,dessertIngredientsTextView,dessertInstructionsTextView])
         stackView.distribution = .fill
         stackView.axis = .vertical
         stackView.alignment = .center
@@ -34,32 +58,31 @@ class DessertDetailViewController: UIViewController {
         return stackView
     }()
     
+    /// Image View of selected dessert
     private let dessertDetailImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = UIView.ContentMode.scaleAspectFill
-        iv.layer.cornerRadius = 10
-        iv.layer.borderWidth = 2
-        iv.layer.borderColor = #colorLiteral(red: 0.9725490196, green: 0.6509803922, blue: 0.09803921569, alpha: 1)
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
     
-    private let dessertInstructions: UITextView = {
+    /// Text view of instructions for selected dessert
+    private let dessertInstructionsTextView: UITextView = {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
-    private let dessertIngredients: UITextView = {
+    /// Text view of ingredients for selected dessert
+    private let dessertIngredientsTextView: UITextView = {
         let textView = UITextView()
         textView.isScrollEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
 
-    
     //MARK: - VIEW CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +91,7 @@ class DessertDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.backgroundColor = .brown
+        view.backgroundColor = .white
         configureNavigationBar()
         configureScrollView()
         configureDessertDetails()
@@ -80,8 +103,17 @@ class DessertDetailViewController: UIViewController {
         NetworkService.request(endpoint: DessertEndpoint.getDessertDetails(searchParam: "", value: dessertID)) { (result: Result<DessertDetails, Error>) in
             switch result {
             case .success(let response):
-                print("Response:", response)
+                // Populate dessertDetails
                 self.dessertDetails = response.meals
+                
+                // Populate dessertIngredients
+                self.dessertIngredients = response.meals.first!.ingredients
+                
+                // Add dessert ingredients into dessertIngredientsMeasurementsDetails array
+                self.dessertIngredients.forEach { ingredientInstructions in
+                    self.dessertIngredientsMeasurementsDetails.append(ingredientInstructions.name + " - " + ingredientInstructions.measure)
+                }
+                
             case .failure(let error):
                 print("Error:", error)
             }
@@ -91,6 +123,8 @@ class DessertDetailViewController: UIViewController {
     /// Configures properties of Navigation Bar
     private func configureNavigationBar() {
         navigationItem.title = dessertTitle
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.topItem?.title = ""
         
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
@@ -127,20 +161,21 @@ class DessertDetailViewController: UIViewController {
                 contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
                 contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
             ])
-        }
+    }
 
+    /// Configures the view of Dessert Details
     private func configureDessertDetails() {
         contentView.addSubview(dessertDetailStackView)
         
         dessertDetailImageView.loadImageFromURL(urlString: imageURL, placeholder: UIImage(named: "FetchRewardsPlaceholder"))
-        
+                
         NSLayoutConstraint.activate([
             dessertDetailStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             dessertDetailStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             dessertDetailStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             dessertDetailStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            dessertDetailImageView.heightAnchor.constraint(equalToConstant: 300)
+            dessertDetailImageView.heightAnchor.constraint(equalToConstant: 300),
         ])
     }
 }
