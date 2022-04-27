@@ -92,6 +92,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2814670A2818DE730078C890 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				28D8C7FE2817807800390944 /* DessertModels.swift */,
+				28D8C8062817C2C700390944 /* DessertDetails.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2814670B2818DEB30078C890 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				28900306280E8C610020AD7A /* DessertMenuViewController.swift */,
+				28D8C8042817C20300390944 /* DessertDetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		289002CA280E7B5C0020AD7A = {
 			isa = PBXGroup;
 			children = (
@@ -117,8 +135,8 @@
 			children = (
 				289002D6280E7B5C0020AD7A /* AppDelegate.swift */,
 				289002D8280E7B5C0020AD7A /* SceneDelegate.swift */,
-				28900306280E8C610020AD7A /* DessertMenuViewController.swift */,
-				28D8C8042817C20300390944 /* DessertDetailViewController.swift */,
+				2814670B2818DEB30078C890 /* Controllers */,
+				2814670A2818DE730078C890 /* Models */,
 				28900308280E99A00020AD7A /* Views */,
 				28D8C7F9281775A700390944 /* Networking */,
 				28D8C8082817C98E00390944 /* Extensions */,
@@ -161,8 +179,6 @@
 				28D8C7FA281775D200390944 /* Endpoint.swift */,
 				28D8C7FC28177F9B00390944 /* DessertEndpoint.swift */,
 				28D8C802281781D700390944 /* NetworkService.swift */,
-				28D8C7FE2817807800390944 /* DessertModels.swift */,
-				28D8C8062817C2C700390944 /* DessertDetails.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
