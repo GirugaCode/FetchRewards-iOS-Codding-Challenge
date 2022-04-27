@@ -20,12 +20,16 @@ class DessertMenuViewController: UIViewController {
         }
     }
     
+    //MARK: - UI COMPONENTS
     /// Table view property for the view
     private var tableView: UITableView!
     
     /// Constant value for each cell height
     private let cellRowHeight: CGFloat = 200
     private let dessertCellId = "DessertCellId"
+    
+    /// Activity Indicator to show when fetching data
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     //MARK: - VIEW CYCLE
     override func viewDidLoad() {
@@ -38,19 +42,27 @@ class DessertMenuViewController: UIViewController {
         configureNavigationBar()
         configureTableView()
         configureAutoLayout()
+        configureActivityIndicator()
     }
     
     //MARK: - PRIVATE FUNCTIONS
     
     /// Network Request to fetch all Desserts from API
     private func fetchDessertsData() {
+        // Start activity indicator
+        activityIndicator.startAnimating()
         NetworkService.request(endpoint: DessertEndpoint.getDessertResults(searchParam: "", value: "")) { (result: Result<DessertModels, Error>) in
             switch result {
             case .success(let response):
-                print("Response:", response)
+                // Populate dessertItems with network response
                 self.dessertItems = response.meals
+                DispatchQueue.main.async {
+                    // Stop activity indicator
+                    self.activityIndicator.stopAnimating()
+                }
             case .failure(let error):
                 print("Error:", error)
+                self.activityIndicator.stopAnimating()
             }
         }
     }
@@ -100,6 +112,17 @@ class DessertMenuViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+    
+    /// Configures the activity indicator for the view
+    private func configureActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
 }

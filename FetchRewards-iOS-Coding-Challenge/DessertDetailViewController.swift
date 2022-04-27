@@ -39,6 +39,9 @@ class DessertDetailViewController: UIViewController {
             }
         }
     }
+    
+    /// Activity Indicator to show when fetching data
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
 
     //MARK: - UI COMPONENTS
     
@@ -97,11 +100,13 @@ class DessertDetailViewController: UIViewController {
         configureNavigationBar()
         configureScrollView()
         configureDessertDetails()
+        configureActivityIndicator()
     }
     
     //MARK: - PRIVATE FUNCTIONS
     /// Network Request to fetch Desserts Details from API
     private func fetchDessertDetails() {
+        activityIndicator.startAnimating()
         NetworkService.request(endpoint: DessertEndpoint.getDessertDetails(searchParam: "", value: dessertID)) { (result: Result<DessertDetails, Error>) in
             switch result {
             case .success(let response):
@@ -116,8 +121,16 @@ class DessertDetailViewController: UIViewController {
                     self.dessertIngredientsMeasurementsDetails.append(ingredientInstructions.name + " - " + ingredientInstructions.measure)
                 }
                 
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
+                
             case .failure(let error):
                 print("Error:", error)
+                
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                }
             }
         }
     }
@@ -179,5 +192,19 @@ class DessertDetailViewController: UIViewController {
             
             dessertDetailImageView.heightAnchor.constraint(equalToConstant: 300),
         ])
+    }
+    
+    /// Configures the activity indicator for the view
+    private func configureActivityIndicator() {
+        activityIndicator.color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+        
+        
     }
 }
