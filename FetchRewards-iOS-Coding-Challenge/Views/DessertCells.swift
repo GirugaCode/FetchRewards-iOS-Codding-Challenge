@@ -35,6 +35,24 @@ class DessertCell: UITableViewCell {
         return iv
     }()
     
+    /// Title view of each dessert menu cell
+    let titleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    /// Title text of each dessert menu cell
+    let titleText: UILabel = {
+        let label = UILabel()
+        label.textColor = #colorLiteral(red: 0.1843137255, green: 0.04705882353, blue: 0.2196078431, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .black)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     //MARK: - INIT
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,6 +77,8 @@ class DessertCell: UITableViewCell {
     /// Configures cell data to appear for DessertCells view
     func configureCell(dessertItem: Dessert) {
         dessertImageView.loadImageFromURL(urlString: dessertItem.strMealThumb, placeholder: UIImage(named: "FetchRewardsPlaceholder"))
+        
+        titleText.text = dessertItem.strMeal
     }
     
     //MARK: - PRIVATE FUNCTIONS
@@ -76,12 +96,22 @@ class DessertCell: UITableViewCell {
         ])
         
         backView.addSubview(dessertImageView)
+        dessertImageView.addSubview(titleView)
+        titleView.addSubview(titleText)
 
         NSLayoutConstraint.activate([
             dessertImageView.topAnchor.constraint(equalTo: backView.topAnchor),
             dessertImageView.leadingAnchor.constraint(equalTo: backView.leadingAnchor),
             dessertImageView.bottomAnchor.constraint(equalTo: backView.bottomAnchor),
-            dessertImageView.trailingAnchor.constraint(equalTo: backView.trailingAnchor)
+            dessertImageView.trailingAnchor.constraint(equalTo: backView.trailingAnchor),
+            
+            titleView.heightAnchor.constraint(equalTo: dessertImageView.heightAnchor, multiplier: 0.25),
+            titleView.leadingAnchor.constraint(equalTo: dessertImageView.leadingAnchor),
+            titleView.bottomAnchor.constraint(equalTo: dessertImageView.bottomAnchor),
+            titleView.trailingAnchor.constraint(equalTo: dessertImageView.trailingAnchor),
+            
+            titleText.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
+            titleText.leadingAnchor.constraint(equalTo: titleView.leadingAnchor, constant: 10)
         ])
     }
 }

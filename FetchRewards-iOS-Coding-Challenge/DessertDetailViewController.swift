@@ -53,7 +53,7 @@ class DessertDetailViewController: UIViewController {
         let stackView = UIStackView(arrangedSubviews: [dessertDetailImageView,dessertIngredientsTextView,dessertInstructionsTextView])
         stackView.distribution = .fill
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -67,18 +67,20 @@ class DessertDetailViewController: UIViewController {
         return iv
     }()
     
-    /// Text view of instructions for selected dessert
-    private let dessertInstructionsTextView: UITextView = {
-        let textView = UITextView()
-        textView.isScrollEnabled = false
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
-    
     /// Text view of ingredients for selected dessert
     private let dessertIngredientsTextView: UITextView = {
         let textView = UITextView()
         textView.isScrollEnabled = false
+        textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        return textView
+    }()
+    
+    /// Text view of instructions for selected dessert
+    private let dessertInstructionsTextView: UITextView = {
+        let textView = UITextView()
+        textView.isScrollEnabled = false
+        textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()

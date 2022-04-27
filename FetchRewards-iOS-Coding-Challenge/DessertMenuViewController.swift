@@ -58,6 +58,7 @@ class DessertMenuViewController: UIViewController {
     /// Configures properties of Navigation Bar
     private func configureNavigationBar() {
         navigationItem.title = "Dessert Menu"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         if #available(iOS 13.0, *) {
             let appearance = UINavigationBarAppearance()
