@@ -5,8 +5,8 @@
 * [Swift 5](https://developer.apple.com/swift/)
 * [Xcode 13.2.1](https://developer.apple.com/xcode/)
 
-![DessertMenuImage](/images/dessert-details.png)
 ![DessertDetailsImage](/images/dessert-menu.png)
+![DessertMenuImage](/images/dessert-details.png)
 
 <!-- GETTING STARTED -->
 # Getting Started
